@@ -1,0 +1,15 @@
+{
+    "name": "Desafio Jazida",
+    "version": "0.1.0",
+    "description": "Api de Pokemon",
+    "title": "Pokemon",
+    "url": "localhost:3000",
+    "header": {
+        "title": "My own header title",
+        "filename": "header.md"
+    },
+    "footer": {
+        "title": "My own footer title",
+        "filename": "footer.md"
+    }
+}
