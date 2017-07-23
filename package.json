@@ -1,21 +1,25 @@
 {
-  "name": "desafio_jazida",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.17.2",
-    "express": "^4.15.3",
-    "express-load": "^1.1.16",
-    "sequelize": "^4.3.2",
-    "tedious": "^2.0.0",
-    "underscore": "^1.8.3"
-  }
+    "name": "desafio_jazida",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://joaopaulogse@bitbucket.org/joaopaulogse/desafio_jazida.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.17.2",
+        "express": "^4.15.3",
+        "express-load": "^1.1.16",
+        "sequelize": "^4.3.2",
+        "tedious": "^2.0.0",
+        "underscore": "^1.8.3"
+    }
 }

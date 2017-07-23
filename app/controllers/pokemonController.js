@@ -21,6 +21,7 @@ module.exports = () => {
         //res.send("estou funcionando..");
     }
     controllers.alterar = function(req, res) {
+        console.log(req.body.treinador);
         dao.alterar(req.params.id, req.body.treinador)
             .then(result => {
                 res.status(204);
@@ -58,44 +59,86 @@ module.exports = () => {
             // res.json({ "messagem": "estou funcionando...." })
     }
     controllers.batalha = function(req, res) {
-        var p1, p2;
 
-        dao.carregar(req.params.pokemonAId).then(pokemon => { p1 = pokemon });
-        dao.carregar(req.params.pokemonBId).then(pokemon => { p2 = pokemon });
-        if (p1.nivel == p2.nivel) { //se o nivel igual
-            let resultado = _.sample([p1, p2]);
-            if (p1 == resultado) {
-                res.json({
-                    "vencedor": p1,
-                    "perdedor": p2
-                })
-            } else if (p2 == resultado) {
-                res.json({
-                    "vencedor": p2,
-                    "perdedor": p1
-                })
-            }
-        } else { //SE TIVER ALGUM NIVEL MAIOR QUE O OUTRO
-            let nivelMaior = Math.max(p1.nivel, p2.nivel);
-            //FAZER A PARTE QUE PEGAR O OBJETO PELO NIVEL
-            let resultado = _.sample([p1, p2, nivelMaior]); //66% DE CHANCE PRO NIVEL MAIOR (2/3)
-            if (p1 == resultado) {
-                res.json({
-                    "vencedor": p1,
-                    "perdedor": p2
-                })
-            } else if (p2 == resultado) {
-                res.json({
-                    "vencedor": p2,
-                    "perdedor": p1
-                })
-            }
-            //FAZER O TERCEIRO ELSE PRO NIVEL MAIOR
-        }
+        dao.carregar(req.params.pokemonAId).then(p1 => {
+            dao.carregar(req.params.pokemonBId).then(p2 => {
+                if (p1.nivel == p2.nivel) { //se o nivel igual
+                    let resultado = _.sample([p1, p2]);
+                    if (p1 == resultado) {
+                        let resultadoBatalha = {
+                            "vencedor": p1,
+                            "perdedor": p2
+                        };
+                        ajustaNiveis(resultadoBatalha);
+                        resultadoBatalha.
+                        res.json(resultadoBatalha);
+                    } else if (p2 == resultado) {
+                        let resultadoBatalha = {
+                            "vencedor": p2,
+                            "perdedor": p1
+                        };
+                        ajustaNiveis(resultadoBatalha);
+                        res.json(resultadoBatalha);
+                    }
+                } else { //SE TIVER ALGUM NIVEL MAIOR QUE O OUTRO
+                    let nivelMaior = Math.max(p1.nivel, p2.nivel);
+                    let objetoVantagem;
+                    if (nivelMaior == p1.nivel) {
+                        objetoVantagem = p1;
+                    } else {
+                        objetoVantagem = p2;
+                    }
+                    console.log("Oponente com vantagem: ", objetoVantagem);
 
-
-
+                    //FAZER A PARTE QUE PEGAR O OBJETO PELO NIVEL
+                    let resultado = _.sample([p1, p2, objetoVantagem]); //66% DE CHANCE PRO NIVEL MAIOR (2/3)
+                    if (p1 == resultado) {
+                        let resultadoBatalha = {
+                            "vencedor": p1,
+                            "perdedor": p2
+                        };
+                        ajustaNiveis(resultadoBatalha);
+                        res.json(resultadoBatalha);
+                    } else if (p2 == resultado) {
+                        let resultadoBatalha = {
+                            "vencedor": p2,
+                            "perdedor": p1
+                        };
+                        ajustaNiveis(resultadoBatalha);
+                        res.json(resultadoBatalha);
+                    } else if (objetoVantagem == resultado && objetoVantagem == p1) {
+                        let resultadoBatalha = {
+                            "vencedor": objetoVantagem,
+                            "perdedor": p2
+                        };
+                        ajustaNiveis(resultadoBatalha);
+                        res.json(resultadoBatalha);
+                    } else if (objetoVantagem == resultado && objetoVantagem == p2) {
+                        let resultadoBatalha = {
+                            "vencedor": objetoVantagem,
+                            "perdedor": p1
+                        };
+                        ajustaNiveis(resultadoBatalha);
+                        res.json(resultadoBatalha);
+                    }
+                }
+            });
+        });
     }
 
+    function ajustaNiveis(resultadoBatalha) {
+        dao.alteraNivel(resultadoBatalha.vencedor.id, resultadoBatalha.vencedor.nivel + 1)
+            .then(result => { console.info("Vencedor: ", result) });
+        if (resultadoBatalha.perdedor.nivel - 1 == 0) {
+            dao.deletar(resultadoBatalha.perdedor.id).then(result => {
+                console.info("Oponente zerou o nivel, e foi deletado!");
+            })
+        } else {
+            dao.alteraNivel(resultadoBatalha.perdedor.id, resultadoBatalha.perdedor.nivel - 1)
+                .then(result => {
+                    console.log("Perderdor: ", result);
+                })
+        }
+    }
     return controllers;
 }

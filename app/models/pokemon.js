@@ -21,4 +21,12 @@ var Pokemons = connection.define("pokemon", {
 }, {
 
 });
+// Pokemons.sync({ force: true }).then(() => {
+//     // return Pokemons.create({
+//     //     id: 1,
+//     //     tipo: "pikachu",
+//     //     treinador: "João",
+//     //     nivel: 1
+//     // })
+// })
 module.exports = Pokemons;

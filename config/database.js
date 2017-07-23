@@ -10,6 +10,11 @@ var sequelize = new Sequelize(config.DATABASE, config.USER, config.PASS, {
     },
     define: {
         schema: config.SCHEMA
+    },
+    pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
     }
 });
 sequelize

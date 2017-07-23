@@ -11,9 +11,13 @@ module.exports = class PokemonDao {
             this._pokemons.create({
                 tipo: objeto.tipo,
                 treinador: objeto.treinador
+            }, {
+                force: true
             }).then(result => {
-                resolve("Cadastrado com sucesso!");
-                console.info(result);
+                delete result.dataValues.updatedAt;
+                delete result.dataValues.createdAt;
+                resolve(result.dataValues);
+                console.info(result.dataValues);
             }).catch(err => {
                 console.error(err);
                 reject("Erro ao criar: " + err);
@@ -27,7 +31,7 @@ module.exports = class PokemonDao {
                 .update({ treinador: treinador }, { where: { id: id } })
                 .then(result => {
                     resolve("Alterado com sucesso!");
-                    console.info(result);
+                    console.info(result.dataValues);
                 }).catch(err => {
                     reject("Erro ao alterar: " + err);
                 })
@@ -39,7 +43,7 @@ module.exports = class PokemonDao {
                 .destroy({ where: { id: id } })
                 .then(result => {
                     resolve("Deletado com Sucesso!");
-                    console.info(result);
+                    console.info("Deletado com Sucesso");
                 }).catch(err => {
                     reject("Erro ao deletar: ", err);
                 });
@@ -50,7 +54,9 @@ module.exports = class PokemonDao {
             this._pokemons
                 .findById(id)
                 .then(result => {
-                    resolve(result);
+                    delete result.dataValues.updatedAt;
+                    delete result.dataValues.createdAt;
+                    resolve(result.dataValues);
                 }).catch(err => {
                     reject("Erro ao buscar por id: " + err);
                 })
@@ -61,9 +67,25 @@ module.exports = class PokemonDao {
             this._pokemons
                 .all()
                 .then(result => {
+                    result.forEach(value => {
+                        delete value.dataValues.updatedAt;
+                        delete value.dataValues.createdAt;
+                    });
                     resolve(result);
                 }).catch(err => {
                     reject("Erro ao listar: " + err);
+                })
+        })
+    }
+    alteraNivel(id, nivel) {
+        return new Promise((resolve, reject) => {
+            this._pokemons
+                .update({ nivel: nivel }, { where: { id, id } })
+                .then(result => {
+                    resolve("Nivel alterado");
+                })
+                .catch(err => {
+                    reject(err);
                 })
         })
     }

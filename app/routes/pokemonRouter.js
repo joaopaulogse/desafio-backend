@@ -5,6 +5,7 @@ module.exports = (app) => {
     /**
      * @api {post} /pokemons Cadastra Treinador com Pokemon
      * @apiName API Pokemon
+     * @apiVersion 0.1.0
      * @apiGroup Pokemons
      *
      * @apiSuccessExample {json} Success-Response:
@@ -21,6 +22,7 @@ module.exports = (app) => {
     /**
      * @api {put} /pokemons/:id Altera treinador
      * @apiName API Pokemon
+     * @apiVersion 0.1.0
      * @apiGroup Pokemons
      *
      * @apiParam {Number} id Pokemon unique ID.
@@ -34,6 +36,7 @@ module.exports = (app) => {
     /**
      * @api {delete} /pokemons/:id Deleta 
      * @apiName API Pokemon
+     * @apiVersion 0.1.0
      * @apiGroup Pokemons
      *
      * @apiParam {Number} id Pokemon unique ID.
@@ -47,6 +50,7 @@ module.exports = (app) => {
     /**
      * @api {get} /pokemons/:id Busca por ID
      * @apiName API Pokemon
+     * @apiVersion 0.1.0
      * @apiGroup Pokemons
      *
      * @apiParam {Number} id Pokemon unique ID.
@@ -64,6 +68,7 @@ module.exports = (app) => {
     /**
      * @api {get} /pokemons Lista Todos
      * @apiName API Pokemon
+     * @apiVersion 0.1.0
      * @apiGroup Pokemons
      *
      * @apiSuccessExample {json} Success-Response:
@@ -75,7 +80,9 @@ module.exports = (app) => {
      *     }
      */
     app.get("/pokemons", controller.listar);
-
+    /**
+     * 
+     */
     app.post("/batalhar/:pokemonAId/:pokemonBId", controller.batalha);
 
 }
