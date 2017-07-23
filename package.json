@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js"
+        "start": "concurrently \"apidoc -i app/ -o docApi/\" \"node server.js\""
     },
     "repository": {
         "type": "git",
@@ -21,5 +21,9 @@
         "sequelize": "^4.3.2",
         "tedious": "^2.0.0",
         "underscore": "^1.8.3"
+    },
+    "devDependencies": {
+        "apidoc": "^0.17.6",
+        "concurrently": "^3.5.0"
     }
 }
