@@ -4,11 +4,11 @@
     "description": "Desafio Backend!",
     "title": "Pokemon",
     "header": {
-        "title": "My own header title",
+        "title": "Cabeçalho",
         "filename": "header.md"
     },
     "footer": {
-        "title": "My own footer title",
+        "title": "Footer",
         "filename": "footer.md"
     },
     "template": {

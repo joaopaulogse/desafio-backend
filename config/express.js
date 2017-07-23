@@ -4,6 +4,9 @@
     module.exports = () => {
 
         var app = express();
+
+        app.set('port', (process.env.PORT || 3000));
+
         app.use("/doc", express.static("docApi"));
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: true }));

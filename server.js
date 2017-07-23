@@ -2,6 +2,6 @@
     var http = require("http").createServer(app);
     //require("./config/database");;
 
-    http.listen(3000, () => {
-        console.log("Servidor rodando ...");
+    http.listen(app.get("port"), () => {
+        console.log("Servidor rodando na Porta: ", app.get("port"));
     })
