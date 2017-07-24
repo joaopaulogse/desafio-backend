@@ -14,5 +14,12 @@
         app.use(bodyParser.urlencoded({ extended: true }));
         require("../app/routes/pokemonRouter")(app);
 
+        app.use(function(req, res, next) {
+            res.status(404).json({
+                "error": "Essa url não existe consulte a documentação"
+            })
+            next();
+        })
+
         return app;
     }
