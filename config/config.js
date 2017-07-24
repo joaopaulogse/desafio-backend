@@ -1,7 +1,7 @@
 module.exports = {
-    DATABASE_URL: "desafio-jz.database.windows.net",
-    DATABASE: "DesafioPokemon",
-    USER: "DesafioAdmin",
-    PASS: "Picachu123",
+    DATABASE_URL: "URL DO BANCO",
+    DATABASE: "DATABASE",
+    USER: "USUARIO",
+    PASS: "*****",
     SCHEMA: "JOAOPAULO"
 }
