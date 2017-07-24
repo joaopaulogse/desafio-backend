@@ -7,21 +7,25 @@ module.exports = class PokemonDao {
     criar(objeto) {
 
         return new Promise((resolve, reject) => {
+            if (!!objeto.tipo || !!objeto.treinador) { //objeto não pode ser nulo, nem undefined
 
-            this._pokemons.create({
-                tipo: objeto.tipo,
-                treinador: objeto.treinador
-            }, {
-                force: true
-            }).then(result => {
-                delete result.dataValues.updatedAt;
-                delete result.dataValues.createdAt;
-                resolve(result.dataValues);
-                console.info(result.dataValues);
-            }).catch(err => {
-                console.error(err);
-                reject("Erro ao criar: " + err);
-            })
+                this._pokemons.create({
+                    tipo: objeto.tipo,
+                    treinador: objeto.treinador
+                }, {
+                    force: true
+                }).then(result => {
+                    delete result.dataValues.updatedAt;
+                    delete result.dataValues.createdAt;
+                    resolve(result.dataValues);
+                    console.info(result.dataValues);
+                }).catch(err => {
+                    console.error(err);
+                    reject("Erro ao criar: " + err);
+                })
+            } else {
+                reject("Tipo ou Treinador nulo!");
+            }
         })
     }
 
