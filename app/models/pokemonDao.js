@@ -31,14 +31,19 @@ module.exports = class PokemonDao {
 
     alterar(id, treinador) {
         return new Promise((resolve, reject) => {
-            this._pokemons
-                .update({ treinador: treinador }, { where: { id: id } })
-                .then(result => {
-                    resolve("Alterado com sucesso!");
-                    console.info(result.dataValues);
-                }).catch(err => {
-                    reject("Erro ao alterar: " + err);
-                })
+            if (!!treinador) {
+
+                this._pokemons
+                    .update({ treinador: treinador }, { where: { id: id } })
+                    .then(result => {
+                        resolve("Alterado com sucesso!");
+                        console.info(result.dataValues);
+                    }).catch(err => {
+                        reject("Erro ao alterar: " + err);
+                    })
+            } else {
+                reject("Treinador não pode ser nulo!")
+            }
         })
     }
     deletar(id) {

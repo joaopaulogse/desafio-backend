@@ -24,7 +24,7 @@ module.exports = () => {
         console.log(req.body.treinador);
         dao.alterar(req.params.id, req.body.treinador)
             .then(result => {
-                res.status(204);
+                res.status(204).send(result);
             })
             .catch(err => {
                 res.status(500).json({ "error": err });
@@ -33,7 +33,7 @@ module.exports = () => {
     controllers.delete = function(req, res) {
         dao.deletar(req.params.id)
             .then(result => {
-                res.status(204);
+                res.status(204).send(result);
             })
             .catch(err => {
                 res.status(404).json({ "error": err });
