@@ -8,6 +8,9 @@ module.exports = (app) => {
      * @apiVersion 0.1.0
      * @apiGroup Pokemons
      *
+     * @apiParam {String} tipo Tipo Pokemon "charizard", "mewtwo" ou "pikachu".
+     * @apiParam {String} treinador Nome do treinador
+     * 
      * @apiSuccessExample {json} Success-Response:
      *   200 - OK
      *     {
